@@ -20,11 +20,15 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/index.html'));
 });
 
-app.listen(PORT, () => {
-  console.log(`=======================================================`);
-  console.log(` Emergency Evacuation Planning System (PIE & UX-First)`);
-  console.log(` Experiential Learning Model — JAIN (Deemed-to-be Univ)`);
-  console.log(` Author: Ameya (B.Tech CSE - AI-Driven DevOps)`);
-  console.log(` Server active on: http://localhost:${PORT}`);
-  console.log(`=======================================================`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log('==============================================');
+    console.log('Emergency Evacuation Planning System (PIE & UX-First)');
+    console.log('Experimental Learning Model — JAIN (Deemed-to-be Univ)');
+    console.log('Author: Ameya (B.Tech CSE — AI-Driven DevOps)');
+    console.log(`Server active on: http://localhost:${PORT}`);
+    console.log('==============================================');
+  });
+}
+
+module.exports = app;
