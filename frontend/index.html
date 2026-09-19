@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Emergency Evacuation Planning System — Inclusion–Exclusion & UX-First Routing</title>
+  <meta name="description" content="Working model for emergency evacuation planning using the Principle of Inclusion-Exclusion (PIE) and Hick's Law cognitive ergonomics. B.Tech Experiential Learning Project for JAIN University." />
+
+  <!-- Google Fonts: Outfit, Inter, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/dashboard.css" />
+  <link rel="stylesheet" href="styles/components.css" />
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-brand">
+        <div class="logo-badge">⚡</div>
+        <div class="brand-text">
+          <h1>
+            Emergency Evacuation Planning System
+            <span class="math-badge">PIE Math Model</span>
+          </h1>
+          <div class="brand-subtitle">
+            <span>Experiential Learning Model • JAIN (Deemed-to-be University)</span>
+            <span>•</span>
+            <span style="color: #38bdf8;">Ameya (B.Tech CSE - AI-Driven DevOps)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div id="system-status-indicator" class="status-indicator">
+          <span class="pulse-dot"></span>
+          <span id="system-status-text">SYSTEM ACTIVE • MONITORING</span>
+        </div>
+
+        <button class="btn btn-secondary btn-sm" id="btn-open-viva">
+          🎓 Viva Pitch & Q&A
+        </button>
+
+        <button class="btn btn-secondary btn-sm" id="btn-reset-header">
+          🔄 Reset
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Dashboard Grid -->
+    <main class="dashboard-main">
+      <!-- LEFT COLUMN: CONTROLS & SCENARIOS -->
+      <aside class="dashboard-column">
+        <!-- Scenario Presets -->
+        <div class="panel-card">
+          <div class="card-header">
+            <h2 class="card-title"><span class="icon">🎯</span> Evaluator Scenarios</h2>
+            <span class="badge-tag badge-purple">1-Click Demos</span>
+          </div>
+          <div id="scenario-presets-container"></div>
+        </div>
+
+        <!-- Optimality Threshold Slider -->
+        <div class="panel-card">
+          <div class="card-header">
+            <h2 class="card-title"><span class="icon">⚖️</span> Route Decision Rule</h2>
+            <span class="badge-tag badge-cyan">Hick's Law</span>
+          </div>
+          <div id="threshold-slider-container"></div>
+        </div>
+
+        <!-- Manual Hazard Trigger & Occupancy Sliders -->
+        <div class="panel-card">
+          <div class="card-header">
+            <h2 class="card-title"><span class="icon">🛠️</span> Simulation Controls</h2>
+            <span class="badge-tag">Operator Panel</span>
+          </div>
+          <div id="hazard-trigger-container"></div>
+          <div id="zone-editor-container"></div>
+        </div>
+      </aside>
+
+      <!-- CENTER COLUMN: HERO FLOOR PLAN & EXIT METERS -->
+      <section class="dashboard-column">
+        <!-- Floor Plan Card -->
+        <div class="panel-card floor-plan-card">
+          <div class="card-header">
+            <h2 class="card-title">
+              <span class="icon">🏢</span> Level 2 Architectural Floor Plan
+            </h2>
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <span class="badge-tag" style="background: rgba(255,255,255,0.06); font-family: var(--font-mono); font-size: 10px;">
+                Interactive: Click rooms to inspect / set origin
+              </span>
+            </div>
+          </div>
+
+          <div class="floor-plan-viewport" id="floor-plan-container">
+            <!-- Rendered by FloorPlanView.js -->
+          </div>
+
+          <!-- Floor Plan Legend -->
+          <div class="floor-plan-toolbar">
+            <div class="legend-items">
+              <div class="legend-item">
+                <span class="legend-swatch swatch-hazard"></span>
+                <span>Hazard Zone</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-swatch swatch-ux"></span>
+                <span>UX-First Route (Recommended)</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-swatch swatch-optimal"></span>
+                <span>Optimal Route (Shortest)</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-swatch swatch-overlap"></span>
+                <span>PIE Overlap Region</span>
+              </div>
+            </div>
+            <div style="font-size: 11px; font-family: var(--font-mono); color: var(--text-muted);">
+              Scale: 1000px = 60m
+            </div>
+          </div>
+        </div>
+
+        <!-- Exit Load Telemetry -->
+        <div id="exit-meter-container"></div>
+      </section>
+
+      <!-- RIGHT COLUMN: PIE MATHEMATICS & ROUTE DECISION -->
+      <aside class="dashboard-column">
+        <!-- Inclusion-Exclusion Explainer -->
+        <div id="pie-comparison-container"></div>
+
+        <!-- Route Strategy Decision -->
+        <div id="route-panel-container"></div>
+      </aside>
+    </main>
+
+    <!-- Bottom Activity Drawer -->
+    <div id="activity-log-container"></div>
+  </div>
+
+  <!-- VIVA NOTES & REPORT MODAL -->
+  <div class="modal-overlay" id="viva-modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close" id="btn-close-modal">&times;</button>
+      
+      <div style="margin-bottom: 20px;">
+        <span class="badge-tag badge-purple">Academic Viva & Presentation Reference</span>
+        <h2 style="font-family: var(--font-display); font-size: 22px; margin-top: 8px; color: #f8fafc;">
+          Emergency Evacuation Planning System
+        </h2>
+        <p style="color: var(--text-secondary); font-size: 13px;">
+          Student: <strong>Ameya</strong> | B.Tech CSE (AI-Driven DevOps) | JAIN (Deemed-to-be University)
+        </p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 18px; line-height: 1.6; font-size: 13px; color: #cbd5e1;">
+        <!-- 2 Minute Pitch -->
+        <div style="background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: var(--radius-md); padding: 14px;">
+          <h3 style="color: #a78bfa; font-size: 14px; margin-bottom: 6px; font-weight: 700;">
+            🎙️ 2-Minute Pitch for Examiners:
+          </h3>
+          <p>
+            "Traditional evacuation models make two major mistakes: first, they naively sum up room populations to estimate exit loads. When corridors and rooms share doorways and thresholds, this double-counts evacuees by 20% to 35%, causing emergency dispatchers to falsely assume an exit is clogged and divert panicking crowds down longer paths. We solve this mathematically using the <strong>Principle of Inclusion–Exclusion (PIE)</strong>.
+          </p>
+          <p style="margin-top: 6px;">
+            Second, theoretical algorithms search for mathematical shortest-paths regardless of human cognitive panic. Drawing on <strong>Hick's Law</strong>, our model prioritizes <strong>UX-First Routing</strong>—favoring straight lines of sight and minimal turns. We only override the simpler route if the theoretical shortcut is faster by more than a configurable threshold (e.g. 15%)."
+          </p>
+        </div>
+
+        <!-- Top 3 Viva Questions -->
+        <div>
+          <h3 style="color: #38bdf8; font-size: 14px; margin-bottom: 10px; font-weight: 700;">
+            ❓ Top Viva Questions & Answers
+          </h3>
+
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div style="background: rgba(0,0,0,0.25); padding: 10px; border-radius: var(--radius-sm);">
+              <strong style="color: #f8fafc;">Q1: What is the exact formula for PIE across 3 overlapping zones?</strong>
+              <div style="color: #94a3b8; font-family: var(--font-mono); font-size: 12px; margin-top: 4px;">
+                |A ∪ B ∪ C| = |A| + |B| + |C| − (|A ∩ B| + |A ∩ C| + |B ∩ C|) + |A ∩ B ∩ C|
+              </div>
+              <p style="color: var(--text-secondary); font-size: 12px; margin-top: 4px;">
+                The pairwise intersections remove double-counted individuals, while the 3-way intersection adds back people subtracted one too many times.
+              </p>
+            </div>
+
+            <div style="background: rgba(0,0,0,0.25); padding: 10px; border-radius: var(--radius-sm);">
+              <strong style="color: #f8fafc;">Q2: Why does Hick's Law matter in an emergency?</strong>
+              <p style="color: var(--text-secondary); font-size: 12px; margin-top: 4px;">
+                Hick's Law states decision time increases logarithmically with the number of choices ($T = b \log_2(n + 1)$). In high-stress situations, every turn or branching hallway introduces hesitation, group splitting, and wrong turns. Real-world hesitation costs far more time than a few seconds saved by a complex theoretical shortcut.
+              </p>
+            </div>
+
+            <div style="background: rgba(0,0,0,0.25); padding: 10px; border-radius: var(--radius-sm);">
+              <strong style="color: #f8fafc;">Q3: How does the optimality threshold slider work?</strong>
+              <p style="color: var(--text-secondary); font-size: 12px; margin-top: 4px;">
+                If $\frac{T_{\text{UX}} - T_{\text{Optimal}}}{T_{\text{UX}}} > \text{Threshold}\%$, the system switches to the Optimal route. If the difference is small (e.g. 7%), the system stays on UX-First to prevent cognitive overload.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="src/api/apiClient.js"></script>
+  <script src="src/components/FloorPlanView.js"></script>
+  <script src="src/components/OccupancyComparison.js"></script>
+  <script src="src/components/RoutePanel.js"></script>
+  <script src="src/components/ExitLoadMeter.js"></script>
+  <script src="src/admin/ScenarioPresets.js"></script>
+  <script src="src/admin/ThresholdSlider.js"></script>
+  <script src="src/admin/HazardTrigger.js"></script>
+  <script src="src/admin/ZoneEditor.js"></script>
+  <script src="src/admin/ActivityLog.js"></script>
+  <script src="src/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "name": "emergency-evacuation-planning",
+  "version": "1.0.0",
+  "description": "Emergency Evacuation Planning System using the Principle of Inclusion-Exclusion (PIE) and UX-First Routing",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "node backend/server.js",
+    "test": "node backend/tests/test_pie.js"
+  },
+  "keywords": [
+    "inclusion-exclusion",
+    "emergency-evacuation",
+    "discrete-mathematics",
+    "ux-routing",
+    "hicks-law"
+  ],
+  "author": "Ameya",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}
